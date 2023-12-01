@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace BindingHelper
 {
-    public class Property : DependencyObject, IDisposable
+    public class Property : IDisposable
     {
         private object m_instance;
         private Dictionary<string, object> m_properties;
