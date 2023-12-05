@@ -30,6 +30,14 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+    <PackageId>BindingHelper</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>donpp237</Authors>
+    <Company>donpp237</Company>
+    <RepositoryUrl>https://github.com/donpp237/BindingHelper</RepositoryUrl>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
