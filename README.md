@@ -4,6 +4,11 @@
 
 Helper that can assist in binding processing in MVVM patterns
 
+## Version
+
+v1.0.0 - Add Command and Property Class <br>
+v1.0.1 - Add WeakReference in Command Class
+
 ## Example
 
 ### View
