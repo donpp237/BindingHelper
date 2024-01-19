@@ -1,22 +1,26 @@
-﻿using System;
+using System;
+using System.Reflection;
 using System.Windows.Input;
 using System.Collections.Generic;
 
 namespace BindingHelper
 {
-    class DelegateCommand : ICommand
+    class WeakCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
 
-        private Func<bool> m_canExecute;
-        private Action<object> m_execute;
+        private WeakReference m_canExecute;
+        private WeakReference m_execute;
 
-        public DelegateCommand(Action<object> exectue) : this(exectue, null) { }
+        private Action m_actOnDeleteExecute;
 
-        public DelegateCommand(Action<object> execute, Func<bool> canExecute)
+        public WeakCommand(Action<object> exectue, Action actOnDeleteExecute) : this(exectue, null, actOnDeleteExecute) { }
+
+        public WeakCommand(Action<object> execute, Func<bool> canExecute, Action actOnDeleteExecute)
         {
-            this.m_execute = execute;
-            this.m_canExecute = canExecute;
+            this.m_execute = new WeakReference(execute);
+            this.m_canExecute = new WeakReference(canExecute);
+            this.m_actOnDeleteExecute = actOnDeleteExecute;
         }
 
         /// <summary>
@@ -26,10 +30,18 @@ namespace BindingHelper
         /// <returns>can execute or not</returns>
         public bool CanExecute(object o)
         {
-            if (this.m_canExecute == null)
+            WeakReference refAction = m_canExecute;
+            if (refAction == null)
                 return true;
 
-            return this.m_canExecute();
+            if (refAction.Target == null)
+                return true;
+
+            Func<bool> canExecute = (Func<bool>)refAction.Target;
+            if (canExecute == null)
+                return true;
+
+            return canExecute.Invoke();
         }
 
         /// <summary>
@@ -38,7 +50,19 @@ namespace BindingHelper
         /// <param name="o">parameter by default of icomand interface</param>
         public void Execute(object o)
         {
-            this.m_execute(o);
+            WeakReference refAction = m_execute;
+            if ((refAction == null)
+                || (refAction.Target == null))
+            {
+                m_actOnDeleteExecute?.Invoke();
+                return;
+            }
+
+            Action<object> execute = (Action<object>)refAction.Target;
+            if (execute == null)
+                return;
+
+            execute(o);
         }
 
         /// <summary>
@@ -53,13 +77,12 @@ namespace BindingHelper
 
     internal class Command : IDisposable
     {
+        private object m_instance;
         private Dictionary<string, ICommand> m_commands;
-
-        private string m_classType;
 
         public Command(object instance)
         {
-            m_classType = instance.GetType().ToString();
+            m_instance = instance;
             m_commands = new Dictionary<string, ICommand>();
         }
 
@@ -78,7 +101,7 @@ namespace BindingHelper
             string commandName = GetCommandName(memberName);
             if (m_commands.TryGetValue(commandName, out command) == false)
             {
-                command = new DelegateCommand(action);
+                command = new WeakCommand(action, ()=>ReAllocateDelegate(memberName));
                 m_commands.Add(commandName, command);
             }
 
@@ -87,7 +110,18 @@ namespace BindingHelper
 
         private string GetCommandName(string memberName)
         {
-            return $"{m_classType}.{memberName}";
+            return $"{m_instance.GetType().ToString()}.{memberName}";
+        }
+
+        private void ReAllocateDelegate(string memberName)
+        {
+            string commandName = GetCommandName(memberName);
+            if (m_commands.ContainsKey(commandName) == true)
+                m_commands.Remove(commandName);
+
+            Type type = m_instance.GetType();
+            PropertyInfo property = type.GetProperty(memberName);
+            property.GetValue(m_instance);
         }
     }
 }
