@@ -36,6 +36,9 @@ jobs:
       - name: Navigate
         run: cd $GITHUB_WORKSPACE
 
+      - name: ECHO
+        run: echo $PWD
+
       - name: Nuget Package
         #run: dotnet pack $GITHUB_WORKSPACE/BindingHelper/BindingHelper.csproj
         run: dotnet pack ~/BindingHelper/BindingHelper/BindingHelper.csproj
