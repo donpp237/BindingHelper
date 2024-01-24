@@ -30,6 +30,9 @@ jobs:
       #- name: Generate a NuGet package
       #  run: dotnet pack --no-build -c Release -o .
 
+      - name: Navigate
+        run: cd $GITHUB_WORKSPACE
+
       - name: Nuget Package
         run: nuget pack
 
