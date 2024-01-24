@@ -18,6 +18,11 @@ jobs:
           source-url: https://nuget.pkg.github.com/donpp237/index.json
         env:
           NUGET_AUTH_TOKEN: ${{secrets.TOKEN}}
+
+      - name: Setup .nuget
+        uses: nuget/setup-nuget@v1
+        with:
+          nuget-version: '5.x'
           
       - name: Build project
         run: dotnet build -c Release
