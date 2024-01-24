@@ -12,8 +12,8 @@ jobs:
         uses: actions/checkout@main
 
       - name: Build and Pack NuGet package
-        run: dotnet pack src/services/Florage.Shared/Florage.Shared.csproj -p:Version='${{ steps.gitversion.outputs.SemVer }}' -c Release
-      
+        run: dotnet pack -o . src\BindingHelper\BindingHelper.csproj -p:Version='${{ steps.gitversion.outputs.SemVer }}' -c Release
+
       - name: Upload NuGet package to GitHub
         uses: actions/upload-artifact@v2
         with:
