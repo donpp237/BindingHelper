@@ -37,7 +37,7 @@ jobs:
       #  run: cd $GITHUB_WORKSPACE
 
       - name: Nuget Package
-        run: nuget pack $GITHUB_WORKSPACE/BindingHelper.csproj
+        run: dotnet pack $GITHUB_WORKSPACE/BindingHelper.csproj -p:Version='${{ steps.gitversion.outputs.SemVer }}' -c Release
 
       - name: Push to GitHub package registry
         run: dotnet nuget push *.nupkg
