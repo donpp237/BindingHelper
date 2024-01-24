@@ -37,7 +37,7 @@ jobs:
         run: cd $GITHUB_WORKSPACE
 
       - name: ECHO
-        run: echo $ls
+        run: echo `ls -al`
 
       - name: Nuget Package
         #run: dotnet pack $GITHUB_WORKSPACE/BindingHelper/BindingHelper.csproj
