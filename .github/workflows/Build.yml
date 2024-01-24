@@ -10,3 +10,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@main
+
+      - name: Pack
+        run: nuget pack
+
+      - name: Upload
+        run: dotnet nuget push "BindingHelper.${VERSION}.nupkg" --api-key "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" --source "https://nuget.pkg.github.com/donpp237/index.json"
