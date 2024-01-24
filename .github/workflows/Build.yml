@@ -11,8 +11,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@main
 
-      - name: Pack
-        run: nuget pack
-
-      - name: Upload
-        run: dotnet nuget push "BindingHelper.${VERSION}.nupkg" --api-key "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" --source "https://nuget.pkg.github.com/donpp237/index.json"
+      - name: Build and Pack NuGet package
+        run: dotnet pack BindingHelper/BindingHelper.csproj -p:Version='${{ steps.gitversion.outputs.SemVer }}' -c Release
+      
+      - name: Upload NuGet package to GitHub
+        uses: actions/upload-artifact@v2
+        with:
+          name: nugetPackage
+          path: bin/Release/ 
