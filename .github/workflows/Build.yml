@@ -22,8 +22,8 @@ jobs:
         with:
           nuget-version: '5.x'
           
-      #- name: Build project
-      #  run: dotnet build -c Release
+      - name: Build project
+        run: dotnet build -c Release
 
       #- name: Generate a NuGet package
       #  run: dotnet pack --no-build -c Release -o .
