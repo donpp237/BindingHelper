@@ -22,14 +22,14 @@ jobs:
         with:
           nuget-version: '5.x'
           
-      - name: Build project
-        run: dotnet build -c Release
+      #- name: Build project
+      #  run: dotnet build -c Release
 
       #- name: Generate a NuGet package
       #  run: dotnet pack --no-build -c Release -o .
 
       #- name: Echo
-      #  run: echo $GITHUB_WORKSPACE/BindingHelper
+      #  run: echo $GITHUB_WORKSPACE/BindingHelper/BindingHelper
       
       - name: Navigate
         run: cd $GITHUB_WORKSPACE
