@@ -41,7 +41,7 @@ jobs:
 
       - name: Nuget Package
         #run: dotnet pack $GITHUB_WORKSPACE/BindingHelper/BindingHelper.csproj
-        run: dotnet pack
+        run: dotnet ./BindingHelper/BindingHelper.csproj pack
 
       - name: Push to GitHub package registry
         run: dotnet nuget push *.nupkg
