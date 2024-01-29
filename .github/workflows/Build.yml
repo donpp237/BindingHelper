@@ -28,4 +28,6 @@ jobs:
     #  run: nuget restore -ConfigFile ./NuGet.Config BindingHelper.sln
       
     # Create the NuGet package in the folder from the environment variable NuGetDirectory
-    - run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }}
+    #- run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }}
+
+    - run: nuget pack
