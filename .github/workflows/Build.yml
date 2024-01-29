@@ -15,8 +15,8 @@ jobs:
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
       
-    - name: Restore nuget packages
-      run: nuget restore -ConfigFile ./NuGet.Config juliet.sln
+    #- name: Restore nuget packages
+    #  run: nuget restore -ConfigFile ./NuGet.Config juliet.sln
       
     # Create the NuGet package in the folder from the environment variable NuGetDirectory
     - run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }}
