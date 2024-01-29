@@ -4,15 +4,14 @@ on:
     tags: v*
 
 jobs: 
-  create_nuget:
+ build:
     runs-on: [ self-hosted, vs2022 ]
     steps:
-    - uses: actions/checkout@v4
-
-    # Install the .NET SDK indicated in the global.json file
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        lfs: true
+        
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
       
