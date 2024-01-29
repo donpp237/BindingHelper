@@ -3,10 +3,10 @@ on:
   push:
     tags: v*
 
-env:
-  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
-  DOTNET_NOLOGO: true
-  NuGetDirectory: ${{ github.workspace}}/nuget
+#env:
+#  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+#  DOTNET_NOLOGO: true
+#  NuGetDirectory: ${{ github.workspace}}/nuget
 
 
 jobs: 
@@ -30,4 +30,6 @@ jobs:
     # Create the NuGet package in the folder from the environment variable NuGetDirectory
     #- run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }}
 
-    - run: nuget pack --configuration Release --output ${{ env.NuGetDirectory }}
+    - run: cd ${{ github.workspace }}
+
+    - run: nuget pack
