@@ -23,13 +23,19 @@ jobs:
         
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
+
+    - name: Install dependencies
+      run: dotnet restore
       
-    - name: Restore nuget packages
-      run: nuget restore -ConfigFile ./NuGet.Config BindingHelper.sln
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+      
+    #- name: Restore nuget packages
+    #  run: nuget restore -ConfigFile ./NuGet.Config BindingHelper.sln
       
     # Create the NuGet package in the folder from the environment variable NuGetDirectory
     #- run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }}
 
     #- run: cd ${{ github.workspace }}
 
-    - run: nuget pack
+    #- run: nuget pack
