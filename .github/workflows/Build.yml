@@ -30,4 +30,4 @@ jobs:
     # Create the NuGet package in the folder from the environment variable NuGetDirectory
     #- run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }}
 
-    - run: nuget pack
+    - run: nuget pack --configuration Release --output ${{ env.NuGetDirectory }}
