@@ -39,4 +39,4 @@ jobs:
 
     #- run: cd ${{ github.workspace }}
 
-    - run: nuget pack D:\a\BindingHelper\BindingHelper\BindingHelper\bin\Release\BindingHelper.dll
+    - run: nuget pack D:\a\BindingHelper\BindingHelper\BindingHelper.csproj
