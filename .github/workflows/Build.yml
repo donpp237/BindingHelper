@@ -36,7 +36,8 @@ jobs:
       
     # Create the NuGet package in the folder from the environment variable NuGetDirectory
     #- run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }}
+    - run: dotnet pack --configuration Release
 
     #- run: cd ${{ github.workspace }}
 
-    - run: nuget pack D:\a\BindingHelper\BindingHelper\BindingHelper.csproj
+    #- run: nuget pack D:\a\BindingHelper\BindingHelper\BindingHelper.csproj
