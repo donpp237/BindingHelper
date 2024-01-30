@@ -38,4 +38,4 @@ jobs:
 
     #- run: cd ${{ github.workspace }}
 
-    - run: nuget pack ${{rootDirPath}}/BindingHelper.csproj
+    - run: nuget pack BindingHelper/BindingHelper.csproj
